@@ -1,5 +1,6 @@
 float squareX;
 float squareY;
+Camera worldCam;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ boolean isDrawing;
 
 void setup(){
    size(1600, 900);
+   worldCam = new Camera();
    speed = 1;
    frameRate(30 * speed);
    noStroke();
@@ -40,10 +42,6 @@ void setup(){
 void draw(){
    background(0);
    
-   if(start){
-      field.drawFlowers(); 
-   }
-   
    fill(125,125,125);
    rect(0, 0, width, 50);
    
@@ -55,6 +53,13 @@ void draw(){
    speedDownButton.draw();
    speedDisplay.draw();
    speedUpButton.draw();
+   
+   translate(-worldCam.pos.x, -worldCam.pos.y);
+   worldCam.draw();
+   
+   if(start){
+      field.drawFlowers(); 
+   }
 }
 
 void mouseClicked(){

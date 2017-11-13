@@ -106,6 +106,28 @@ void keyPressed(){
   if(key == 'c'){
     dispFPS();
   }
+  if(key == 'a'){
+    worldCam.left();
+  }
+  if(key == 'w'){
+    worldCam.up();
+  }
+  if(key == 'd'){
+    worldCam.right();
+  }
+  if(key == 's'){
+    worldCam.down();
+  }
+    println("horiMove: " + (worldCam.horiMove/speed) + "    vertMove: " + (worldCam.vertMove/speed));
+}
+
+void keyReleased(){
+  if(key == 'a' || key == 'd'){
+    worldCam.resetHori();
+  }
+  if(key == 'w' || key == 's'){
+    worldCam.resetVert();
+  }
 }
 
 void pausePlay(){
@@ -141,5 +163,5 @@ void speedDown(){
 }
 
 void dispFPS(){
-  println("FPS: " + frameRate);
+  println("FPS: " + round(frameRate));
 }

@@ -1,29 +1,35 @@
 class Camera{
   PVector pos;
+  int vertMove;
+  int horiMove;
+  int speedMove;
   
   Camera(){
     pos = new PVector(0,0);  
+    speedMove = 16;
   }
   
   void draw(){
-    if(keyPressed){
-      switch(key){
-        case 'w':
-          pos.y -= 5;
-          break;
-        case 'd':
-          pos.x += 5;
-          break;
-        case 's':
-          pos.y += 5;
-          break;
-        case 'a':
-          pos.x -= 5;
-          break;
-        default:
-          println("failed");
-          break;
-      }
-    }
+    pos.y += vertMove;
+    pos.x -= horiMove;
+  }
+  
+  void left(){
+    horiMove = speedMove;
+  }
+  void up(){
+    vertMove = -speedMove;
+  }
+  void right(){
+    horiMove = -speedMove;
+  }
+  void down(){
+    vertMove = speedMove;
+  }
+  void resetHori(){
+    horiMove = 0;
+  }
+  void resetVert(){
+    vertMove = 0;
   }
 }

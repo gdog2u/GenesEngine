@@ -40,7 +40,7 @@ void setup(){
 }
 
 void draw(){
-   background(0);
+   background(99, 209, 62);
    
    fill(125,125,125);
    rect(0, 0, width, 50);
@@ -106,6 +106,8 @@ void keyPressed(){
   if(key == 'c'){
     dispFPS();
   }
+  
+  //Camera movements
   if(key == 'a'){
     worldCam.left();
   }
@@ -118,7 +120,6 @@ void keyPressed(){
   if(key == 's'){
     worldCam.down();
   }
-    println("horiMove: " + (worldCam.horiMove/speed) + "    vertMove: " + (worldCam.vertMove/speed));
 }
 
 void keyReleased(){

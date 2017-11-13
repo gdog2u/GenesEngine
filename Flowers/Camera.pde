@@ -10,8 +10,8 @@ class Camera{
   }
   
   void draw(){
-    pos.y += vertMove;
-    pos.x -= horiMove;
+    pos.y += ceil(vertMove/speed);
+    pos.x -= ceil(horiMove/speed);
   }
   
   void left(){

@@ -1,4 +1,4 @@
-class Button{
+  class Button{
   int x;
   int y;
   int w;

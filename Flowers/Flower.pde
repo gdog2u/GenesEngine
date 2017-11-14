@@ -35,6 +35,7 @@ class Flower{
      genes.put("color", new Chromosome(c1, c2));
      genes.put("size", new Chromosome(s, s));
      genes.put("petal", new Chromosome(p1, p2));
+     genes.put("mutability", new Chromosome(new Genotype(0.01, 1), new Genotype(0.02, 1)));
      
      size = ( (Integer) getPhenotype(genes.get("size"), 2) )/2;
      pSize = ceil((Integer)s.getValue()/3);
@@ -169,8 +170,13 @@ class Flower{
      
      visualColor = getVisualColor();
      
+     //Mono-hybrid for Petal shape
      Genotype[] petalMono = getMonoHybrid(mGenes.get("petal"), fGenes.get("petal"));
      genes.put("petal", new Chromosome(petalMono[0], petalMono[1]));
+     
+     //Mono-hybrid for Mutability
+     Genotype[] mutMono = getMonoHybrid(mGenes.get("mutability"), fGenes.get("mutability"));
+     genes.put("mutability", new Chromosome(mutMono[0], mutMono[1]));
      
      if(m.getGender() == 'M'){
        father = m;
@@ -311,6 +317,10 @@ class Flower{
      return children;
    }
    
+   int getLastBreed(){
+     return lastBreed;
+   }
+   
    int getX(){
      return x;
    }
@@ -376,31 +386,15 @@ class Flower{
    }
    
    void debug(){
-      println("Name: " + name);
-      println("Gender: " + gender);
-      println("Size: " + size);
-      println("Max Age: " + maxAge);
+      int bioH = 0;
       if(mother != null){
-        println("Mother: " + mother.getName());
-        println("Father: " + father.getName());
+        bioH = 840;
+      }else{
+        bioH = 770;
       }
-      println("Children: " + children);
-      println("Last Breed: " + lastBreed);
-      println("\n        GENES");
-      println("Color One: " + Arrays.toString(getDomColor()));
-      println("    Weight: " + genes.get("color").getDomGene().getWeight());                                    
-      println("Color Two: " + Arrays.toString(getRecColor()));
-      println("    Weight: " + genes.get("color").getRecGene().getWeight());
-      
-      println("Size One: " + genes.get("size").getDomGene().getValue());
-      println("    Weight: " + genes.get("size").getDomGene().getWeight());
-      println("Size Two: " + genes.get("size").getRecGene().getValue());
-      println("    Weight: " + genes.get("size").getRecGene().getWeight());
-      
-      println("Petal One: " + genes.get("petal").getDomGene().getValue());
-      println("    Weight: " + genes.get("petal").getDomGene().getWeight());
-      println("Petal Two: " + genes.get("petal").getRecGene().getValue());
-      println("    Weight: " + genes.get("petal").getRecGene().getWeight());
+      BioScreen bio = new BioScreen(this, 500, bioH);
+      runSketch(new String[]{""}, bio);
+      println("Huh?");
    }
    
    int[] toIntArr(Integer[] toBuild){

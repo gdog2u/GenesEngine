@@ -15,8 +15,11 @@ Field field;
 boolean start;
 boolean isDrawing;
 
-void setup(){
+void settings(){
    size(1600, 900);
+}
+
+void setup(){
    worldCam = new Camera();
    speed = 1;
    frameRate(30 * speed);

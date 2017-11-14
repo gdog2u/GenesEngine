@@ -51,4 +51,8 @@ class TextDisplay{
   void setText(int newText){
     text = new Integer(newText).toString();
   }
+  
+  String getText(){
+    return text;
+  }
 }

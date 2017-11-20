@@ -23,7 +23,7 @@ class Genotype{
   
   public Genotype(float value, float weight){
     this.value = new Float(value);
-    this.value = weight;
+    this.weight = weight;
   }
   
   public Object getValue(){

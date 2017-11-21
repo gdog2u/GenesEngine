@@ -87,11 +87,11 @@ class BioScreen extends PApplet{
       
       /*Mutability*/
       textStartY += 36;
-      debug.add(new BioText("Mutability One: " + temp.getGenes().get("mutability").getDomGene().getValue(), 50, textStartY, (bioW - 100), 24));
+      debug.add(new BioText("Mutability One: " + (Float)temp.getGenes().get("mutability").getDomGene().getValue(), 50, textStartY, (bioW - 100), 24));
       textStartY += 24;
       debug.add(new BioText("Weight: " + temp.getGenes().get("mutability").getDomGene().getWeight(), 50, textStartY, (bioW - 100), 24));
       textStartY += 36;
-      debug.add(new BioText("Mutability Two: " + temp.getGenes().get("mutability").getRecGene().getValue(), 50, textStartY, (bioW - 100), 24));
+      debug.add(new BioText("Mutability Two: " + (Float)temp.getGenes().get("mutability").getRecGene().getValue(), 50, textStartY, (bioW - 100), 24));
       textStartY += 24;
       debug.add(new BioText("Weight: " + temp.getGenes().get("mutability").getRecGene().getWeight(), 50, textStartY, (bioW - 100), 24));
     }

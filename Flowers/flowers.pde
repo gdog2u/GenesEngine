@@ -27,10 +27,10 @@ void setup(){
    
    field = new Field(25);
    
-   //Params                   Name  Gender MaxAge   Size                            ColorOne                                    ColorTwo                          PetalOne                      PetalTwo
-   field.addFlower(new Flower("Adam", 'M', 60, new Genotype(60, 1.0), new Genotype(new int[] {187, 187, 0}, 1.0), new Genotype(new int[] {187, 187, 0}, 1.0), new Genotype("square", 1.0), new Genotype("square", 1.0)));
-   field.addFlower(new Flower("Eve", 'F', 120, new Genotype(45, 0.5), new Genotype(new int[] {255, 187, 187}, 0.5), new Genotype(new int[] {255, 187, 187}, 0.5), new Genotype("round", 0.66), new Genotype("triangle", 0.33)));
-   field.addFlower(new Flower("Lillith", 'F', 70, new Genotype(51, 1.0), new Genotype(new int[] {20, 217, 197}, 1.0), new Genotype(new int[] {0, 50, 187}, 0.5), new Genotype("square", 1.0), new Genotype("triangle", 0.33)));
+   //Params                   Name  Gender MaxAge   Size                            ColorOne                                    ColorTwo                          PetalOne                      PetalTwo                  MutabilityOne              MutabilityTwo
+   field.addFlower(new Flower("Adam", 'M', 60, new Genotype(60, 1.0), new Genotype(new int[] {187, 187, 0}, 1.0), new Genotype(new int[] {187, 187, 0}, 1.0), new Genotype("square", 1.0), new Genotype("square", 1.0), new Genotype(0.002, 1.0), new Genotype(0.01, 0.5)));
+   field.addFlower(new Flower("Eve", 'F', 120, new Genotype(45, 0.5), new Genotype(new int[] {255, 187, 187}, 0.5), new Genotype(new int[] {255, 187, 187}, 0.5), new Genotype("round", 0.66), new Genotype("triangle", 0.33), new Genotype(0.0025, 1.0), new Genotype(0.01, 0.5)));
+   field.addFlower(new Flower("Lillith", 'F', 70, new Genotype(51, 1.0), new Genotype(new int[] {20, 217, 197}, 1.0), new Genotype(new int[] {0, 50, 187}, 0.5), new Genotype("square", 1.0), new Genotype("triangle", 0.33), new Genotype(0.0022, 1.0), new Genotype(0.015, 0.5)));
    
    //Params               startX, startY, Width, Height, Text
    startButton = new Button(50, 10, 130, 30, "Start");

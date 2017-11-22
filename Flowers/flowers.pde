@@ -1,6 +1,5 @@
 float squareX;
 float squareY;
-Camera worldCam;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ void settings(){
 }
 
 void setup(){
-   worldCam = new Camera();
    speed = 1;
    frameRate(30 * speed);
    noStroke();
@@ -56,9 +54,6 @@ void draw(){
    speedDownButton.draw();
    speedDisplay.draw();
    speedUpButton.draw();
-   
-   translate(-worldCam.pos.x, -worldCam.pos.y);
-   worldCam.draw();
    
    if(start){
       field.drawFlowers(); 
@@ -110,27 +105,27 @@ void keyPressed(){
     dispFPS();
   }
   
-  //Camera movements
+  //Translate field
   if(key == 'a'){
-    worldCam.left();
+    field.left();
   }
   if(key == 'w'){
-    worldCam.up();
+    field.up();
   }
   if(key == 'd'){
-    worldCam.right();
+    field.right();
   }
   if(key == 's'){
-    worldCam.down();
+    field.down();
   }
 }
 
 void keyReleased(){
   if(key == 'a' || key == 'd'){
-    worldCam.resetHori();
+    field.resetHori();
   }
   if(key == 'w' || key == 's'){
-    worldCam.resetVert();
+    field.resetVert();
   }
 }
 

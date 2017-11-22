@@ -3,11 +3,13 @@ class Field{
    ArrayList<Flower> field;
    int maxSize;
    int totalLived;
+   int speedMove, horiMove, vertMove;
    
    Field(int ms){
       field = new ArrayList<Flower>();
       maxSize = ms;
       totalLived = 0;
+      speedMove = 16;
    }
    
    void addFlower(Flower f){
@@ -42,6 +44,10 @@ class Field{
          if(toKill(field.get(i))){
             killFlower(field.get(i));
          }else{
+            if(horiMove != 0 || vertMove != 0){
+              field.get(i).x += ceil(horiMove/speed);
+              field.get(i).y += ceil(vertMove/speed);
+            }
             field.get(i).draw();
          }
       } 
@@ -80,4 +86,23 @@ class Field{
        }
      }
    }
+   
+  void left(){
+    horiMove = speedMove;
+  }
+  void up(){
+    vertMove = -speedMove;
+  }
+  void right(){
+    horiMove = -speedMove;
+  }
+  void down(){
+    vertMove = speedMove;
+  }
+  void resetHori(){
+    horiMove = 0;
+  }
+  void resetVert(){
+    vertMove = 0;
+  }
 }

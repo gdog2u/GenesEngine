@@ -79,7 +79,9 @@ void mouseClicked(){
      redraw();
    }
    
-   field.checkFlowerDebugs();
+   if(!field.checkFlowerDebugs()){
+      field.addFlower(new Flower());
+   }
 }
 
 void keyPressed(){

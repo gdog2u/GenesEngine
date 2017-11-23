@@ -79,12 +79,14 @@ class Field{
      return totalLived; 
    }
    
-   void checkFlowerDebugs(){
+   boolean checkFlowerDebugs(){
      for(Flower f : field){
        if(f.mouseIn()){
          f.debug();
+         return true;
        }
      }
+     return false;
    }
    
   void left(){

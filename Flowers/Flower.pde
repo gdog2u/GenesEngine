@@ -195,6 +195,53 @@ class Flower{
      f.addChild();
    }
    
+   /** 
+   *  Empty constructor.
+   *  Used for debug generation of a random flower.
+   */
+   Flower(int x, int y){
+      genes = new HashMap<String, Chromosome>();
+      this.x = x;
+      this.y = y;
+     
+      name = "test";
+     
+      if(random(1) < .50){
+        gender = 'M';
+      }else{
+        gender = 'F';
+      }
+      
+      children = 0;
+      lastBreed = 0;
+     
+      size = ( (Integer) getPhenotype(genes.get("size"), 2) )/2;
+      pSize = ceil(size/3);
+      
+      int[] colorOne = new int[3];
+      float weightOne = random(1);
+      int[] colorTwo = new int[3];
+      float weightTwo = random(1);
+      
+      for(int i = 0; i < colorOne.length; i++){
+         colorOne[i] = (int)random(256);
+         colorTwo[i] = (int)random(256);
+      }
+      if(weightOne < 0.5){
+        weightOne = 0.5;
+      }else{
+        weightOne = 1.0;
+      }
+      if(weightTwo < 0.5){
+        weightTwo = 0.5;
+      }else{
+        weightTwo = 1.0;
+      }
+      
+      genes.put("color", new Chromosome(new Genotype(colorOne, weightOne), new Genotype(colorTwo, weightTwo)));
+      
+   }
+   
    void draw(){
      rectMode(RADIUS);
      fill(visualColor[0], visualColor[1], visualColor[2]);

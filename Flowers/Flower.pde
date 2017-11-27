@@ -134,9 +134,13 @@ class Flower{
        gender = 'M'; 
      }
      
-     x = (int)random(0, width-size*2);
-     y = (int)random(75, height-size*2);
+     int centerX = (m.x + f.x)/2;
+     int centerY = (m.y + f.y)/2;
      
+     do{
+       x = (int) random(width);
+       y = (int) random(height);
+     }while((pow(x - centerX,2) + pow(y - centerY, 2) <= pow(150,2)) || (pow(x - centerX,2) + pow(y - centerY, 2) >= pow(500,2)));
      
      //Mono-hybrid for Color
      Genotype[] colorMono = getMonoHybrid(mGenes.get("color"),fGenes.get("color"));
@@ -204,7 +208,7 @@ class Flower{
       this.x = x;
       this.y = y;
      
-      name = "test";
+      name = "Test_" + (char)(97 + (int)random(26));
      
       if(random(1) < .50){
         gender = 'M';
@@ -212,11 +216,9 @@ class Flower{
         gender = 'F';
       }
       
+      age = 0;
       children = 0;
       lastBreed = 0;
-     
-      size = ( (Integer) getPhenotype(genes.get("size"), 2) )/2;
-      pSize = ceil(size/3);
       
       int[] colorOne = new int[3];
       float weightOne = random(1);
@@ -240,6 +242,56 @@ class Flower{
       
       genes.put("color", new Chromosome(new Genotype(colorOne, weightOne), new Genotype(colorTwo, weightTwo)));
       
+      visualColor = getVisualColor();
+      
+      int sizeOne = (int)random(12,120);
+      weightOne = random(1);
+      int sizeTwo = (int)random(12,120);
+      weightTwo = random(1);
+      if(weightOne < 0.5){
+        weightOne = 0.5;
+      }else{
+        weightOne = 1.0;
+      }
+      if(weightTwo < 0.5){
+        weightTwo = 0.5;
+      }else{
+        weightTwo = 1.0;
+      }
+      
+      genes.put("size", new Chromosome(new Genotype(sizeOne, weightOne), new Genotype(sizeTwo, weightTwo)));
+      
+      size = ( (Integer) getPhenotype(genes.get("size"), 2) )/2;
+      pSize = ceil(size/3);
+      maxAge = getSizeAge(size*2);
+      if(random(1) < mutability){
+        maxAge += mutator("maxAge"); 
+      }
+      
+      String[] petalTypes = new String[]{"square", "round", "triangle"};
+      float[] petalWeights = new float[]{1.0, 0.66, 0.33};
+      
+      int petalOne = (int)random(3);
+      int petalTwo = (int)random(3);
+      
+      genes.put("petal", new Chromosome(new Genotype(petalTypes[petalOne], petalWeights[petalOne]), new Genotype(petalTypes[petalTwo], petalWeights[petalTwo])));
+      
+      float mutOne = random(0.02);
+      weightOne = random(1);
+      float mutTwo = random(0.02);
+      weightTwo = random(1);
+      if(weightOne < 0.5){
+        weightOne = 0.5;
+      }else{
+        weightOne = 1.0;
+      }
+      if(weightTwo < 0.5){
+        weightTwo = 0.5;
+      }else{
+        weightTwo = 1.0;
+      }
+      
+      genes.put("mutability", new Chromosome(new Genotype(mutOne, weightOne), new Genotype(mutTwo, weightTwo)));
    }
    
    void draw(){
@@ -335,29 +387,6 @@ class Flower{
      }
    }
    
-   /**
-   * Deprecated - removing temporarily for testing
-   *
-   *int getVisualSize(){
-   *  int sizeOne = (Integer)genes.get("size").getDomGene().getValue();
-   *  float weightOne = genes.get("size").getDomGene().getWeight();
-   *  int sizeTwo = (Integer)genes.get("size").getRecGene().getValue();
-   *  float weightTwo = genes.get("size").getRecGene().getWeight();
-   *  
-   *  if(weightOne > weightTwo){
-   *    return sizeOne/2;
-   *  }else if(weightOne == weightTwo){
-   *    if(sizeOne >= sizeTwo){
-   *      return (int)random(sizeTwo, sizeOne)/2;
-   *    }else{
-   *      return (int)random(sizeOne, sizeTwo)/2;
-   *    }
-   *  }else{
-   *    return sizeTwo/2;
-   *  }
-   *}
-   */
-   
    char getGender(){
       return gender;
    }
@@ -415,9 +444,9 @@ class Flower{
    
    boolean canBreed(){
      if(age >= 30){
-       if(lastBreed <= (frameCount + 200) && gender == 'M'){
+       if(lastBreed <= (frameCount - 1000) && gender == 'M'){
          return true; 
-       }else if( lastBreed <= (frameCount + 400) && gender == 'F'){
+       }else if( lastBreed <= (frameCount - 1400) && gender == 'F'){
          return true;
        }else{
          return false;

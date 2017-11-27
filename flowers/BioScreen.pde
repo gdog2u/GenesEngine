@@ -145,7 +145,13 @@ class BioScreen extends PApplet{
       textSize(fontSize);
       textAlign(CENTER);
       fill(fontColor[0], fontColor[1], fontColor[2]);
-      text(text, x + (w/2), (y + (h/2) + (9))); 
+      text(text, x + (w/2), (y + (h/2) + (9)));
+      
+      if(keyPressed){
+        if(keyCode == ESC){
+          exit();
+        }
+      }
     }
     
     void setText(String newText){

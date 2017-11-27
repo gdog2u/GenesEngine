@@ -14,7 +14,7 @@ class Field{
    
    void addFlower(Flower f){
       if(getFieldSize() + 1 < maxSize){
-         field.add(f); 
+         field.add(f);
          totalLived++;
       }else{
          return;
@@ -29,14 +29,17 @@ class Field{
        start = false;
      }
      
-     if(frameCount%90 == 0 && field.size() > 1){
+     if(field.size() > 1){
         int parentOne;
         int parentTwo;
-        do{
-           parentOne = floor(random(getFieldSize()));
-           parentTwo = floor(random(getFieldSize()));
-        }while(parentOne == parentTwo);
-        if(field.get(parentOne).getGender() != field.get(parentTwo).getGender() && (field.get(parentOne).canBreed() && field.get(parentTwo).canBreed())){
+        
+        parentOne = floor(random(getFieldSize()));
+        parentTwo = floor(random(getFieldSize()));
+        
+        if(field.get(parentOne).getGender() != field.get(parentTwo).getGender() 
+            && (field.get(parentOne).canBreed() && field.get(parentTwo).canBreed())
+            && (dist(field.get(parentOne).x, field.get(parentOne).y, field.get(parentTwo).x, field.get(parentTwo).y) < 500)
+        ){
            birthChild(field.get(parentOne), field.get(parentTwo));
         }
       }

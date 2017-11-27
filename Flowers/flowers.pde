@@ -43,6 +43,10 @@ void setup(){
 void draw(){
    background(99, 209, 62);
    
+   if(start){
+      field.drawFlowers(); 
+   }
+   
    fill(125,125,125);
    rect(0, 0, width, 50);
    
@@ -54,10 +58,6 @@ void draw(){
    speedDownButton.draw();
    speedDisplay.draw();
    speedUpButton.draw();
-   
-   if(start){
-      field.drawFlowers(); 
-   }
 }
 
 void mouseClicked(){
@@ -79,8 +79,8 @@ void mouseClicked(){
      redraw();
    }
    
-   if(!field.checkFlowerDebugs()){
-      field.addFlower(new Flower());
+   if(!field.checkFlowerDebugs() && mouseY > 50){
+      field.addFlower(new Flower(mouseX, mouseY));
    }
 }
 

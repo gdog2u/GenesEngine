@@ -96,13 +96,13 @@ class Field{
     horiMove = speedMove;
   }
   void up(){
-    vertMove = -speedMove;
+    vertMove = speedMove;
   }
   void right(){
     horiMove = -speedMove;
   }
   void down(){
-    vertMove = speedMove;
+    vertMove = -speedMove;
   }
   void resetHori(){
     horiMove = 0;

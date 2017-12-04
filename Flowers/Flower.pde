@@ -64,9 +64,15 @@ class Flower{
      x = (int)random(width - 100) + 50;
      y = (int)random(height - 100) + 50;
      
-     visualColor = getVisualColor();
+     visualColor = (int[])getPhenotype(genes.get("color"), 2);
    }
    
+   /**
+   *  Params:
+   *    Flower mother
+   *    Flower father
+   *    String name
+   */
    Flower(Flower m, Flower f, String n){
      genes = new HashMap<String, Chromosome>();
      Map<String, Chromosome> mGenes = m.getGenes();
@@ -138,8 +144,8 @@ class Flower{
      int centerY = (m.y + f.y)/2;
      
      do{
-       x = (int) random(width);
-       y = (int) random(height);
+       x = (int) random(-width ,width);
+       y = (int) random(-height, height);
      }while((pow(x - centerX,2) + pow(y - centerY, 2) <= pow(150,2)) || (pow(x - centerX,2) + pow(y - centerY, 2) >= pow(500,2)));
      
      //Mono-hybrid for Color
@@ -182,7 +188,7 @@ class Flower{
        println("Mutating " + n +  ". New Color Two: " + Arrays.toString(getRecColor()));
      }
      
-     visualColor = getVisualColor();
+     visualColor = (int[])getPhenotype(genes.get("color"), 2);
      
      //Mono-hybrid for Petal shape
      Genotype[] petalMono = getMonoHybrid(mGenes.get("petal"), fGenes.get("petal"));
@@ -202,13 +208,15 @@ class Flower{
    /** 
    *  Empty constructor.
    *  Used for debug generation of a random flower.
+   *  
+   *  Params:
+   *    mouseX
+   *    mouseY
    */
    Flower(int x, int y){
       genes = new HashMap<String, Chromosome>();
       this.x = x;
       this.y = y;
-     
-      name = "Test_" + (char)(97 + (int)random(26));
      
       if(random(1) < .50){
         gender = 'M';
@@ -216,14 +224,35 @@ class Flower{
         gender = 'F';
       }
       
+      name = "Test_" + (char)(97 + (int)random(26)) + "_" + gender;
+      
       age = 0;
       children = 0;
       lastBreed = 0;
       
-      int[] colorOne = new int[3];
+      
+      float mutOne = random(0.001, 0.02);
       float weightOne = random(1);
-      int[] colorTwo = new int[3];
+      float mutTwo = random(0.001, 0.02);
       float weightTwo = random(1);
+      if(weightOne < 0.5){
+        weightOne = 0.5;
+      }else{
+        weightOne = 1.0;
+      }
+      if(weightTwo < 0.5){
+        weightTwo = 0.5;
+      }else{
+        weightTwo = 1.0;
+      }
+      
+      genes.put("mutability", new Chromosome(new Genotype(mutOne, weightOne), new Genotype(mutTwo, weightTwo)));
+      mutability = (float)getPhenotype(genes.get("mutability"), 2);
+      
+      int[] colorOne = new int[3];
+      weightOne = random(1);
+      int[] colorTwo = new int[3];
+      weightTwo = random(1);
       
       for(int i = 0; i < colorOne.length; i++){
          colorOne[i] = (int)random(256);
@@ -242,7 +271,7 @@ class Flower{
       
       genes.put("color", new Chromosome(new Genotype(colorOne, weightOne), new Genotype(colorTwo, weightTwo)));
       
-      visualColor = getVisualColor();
+      visualColor = (int[])getPhenotype(genes.get("color"), 2);
       
       int sizeOne = (int)random(12,120);
       weightOne = random(1);
@@ -276,22 +305,6 @@ class Flower{
       
       genes.put("petal", new Chromosome(new Genotype(petalTypes[petalOne], petalWeights[petalOne]), new Genotype(petalTypes[petalTwo], petalWeights[petalTwo])));
       
-      float mutOne = random(0.02);
-      weightOne = random(1);
-      float mutTwo = random(0.02);
-      weightTwo = random(1);
-      if(weightOne < 0.5){
-        weightOne = 0.5;
-      }else{
-        weightOne = 1.0;
-      }
-      if(weightTwo < 0.5){
-        weightTwo = 0.5;
-      }else{
-        weightTwo = 1.0;
-      }
-      
-      genes.put("mutability", new Chromosome(new Genotype(mutOne, weightOne), new Genotype(mutTwo, weightTwo)));
    }
    
    void draw(){
@@ -367,26 +380,6 @@ class Flower{
       return out;
    }
    
-   int[] getVisualColor(){
-     int[] colorOne = getDomColor();
-     float weightOne = genes.get("color").getDomGene().getWeight();
-     int[] colorTwo = getRecColor();
-     float weightTwo = genes.get("color").getRecGene().getWeight();
-     
-     if(weightOne > weightTwo){
-       return colorOne;
-     }else if(weightOne == weightTwo){
-        int[] newColor = {
-          (colorOne[0] + colorTwo[0])/2,
-          (colorOne[1] + colorTwo[1])/2,
-          (colorOne[2] + colorTwo[2])/2,
-        };
-        return newColor;
-     }else{
-       return colorTwo; 
-     }
-   }
-   
    char getGender(){
       return gender;
    }
@@ -416,9 +409,9 @@ class Flower{
    }
    
    private int getSizeAge(int s){
-     int mA = ceil(exp(-pow(s-60,2)/(2*pow(25,2)))/(sqrt(2*PI)*0.00222)+20);
+     int mA = ceil(exp(-pow(s-60,2)/(2*pow(25,2)))/(sqrt(2*PI)*mutability)+20);
      
-     if(random(1) < .05){
+     if(random(1) < mutability){
        mA += mutator("maxAge");
      }
      
@@ -430,6 +423,7 @@ class Flower{
    }
    
    int mutator(String flag){
+     println("Flower: " + name + " is mutating their " + flag + "!");
      switch(flag){
        case "size":
          return (int)random(-60,60);
@@ -437,6 +431,8 @@ class Flower{
          return (int)random(-25,25);
        case "color":
          return (int)random(-30,30);
+       //case "mutablility":
+         //return random(-0.0101, 0.0101);
        default:
          return 1;
      }
@@ -542,7 +538,23 @@ class Flower{
           return (Integer)gene.getDomGene().getValue();
         }
        }else if(gene.getDomGene().getValue() instanceof Integer[]){
-         return new Integer[2];
+         Integer[] valueOne = (Integer[])gene.getDomGene().getValue();
+           float weightOne = gene.getDomGene().getWeight();
+         Integer[] valueTwo = (Integer[])gene.getRecGene().getValue();
+           float weightTwo = gene.getRecGene().getWeight();
+         
+         if(weightOne > weightTwo){
+           return toIntArr(valueOne);
+         }else if(weightOne == weightTwo){
+            int[] newColor = {
+              (valueOne[0] + valueTwo[0])/2,
+              (valueOne[1] + valueTwo[1])/2,
+              (valueOne[2] + valueTwo[2])/2,
+            };
+            return newColor;
+         }else{
+           return toIntArr(valueTwo); 
+         }
        }else if(gene.getDomGene().getValue() instanceof String){
          return (String)gene.getDomGene().getValue();
        }else if(gene.getDomGene().getValue() instanceof Float){

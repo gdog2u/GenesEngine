@@ -25,8 +25,7 @@ class Field{
      
      if(field.size() == 0){
        println("Your flowers have all died.");
-       println("Press 'Start' to try again.");
-       start = false;
+       println("Click anywhere to begin again.");
      }
      
      if(field.size() > 1){
@@ -57,7 +56,7 @@ class Field{
    }
    
    void birthChild(Flower m, Flower f){
-      addFlower(new Flower(m, f, "child" + (getTotalLived()-3)));
+      addFlower(new Flower(m, f, "child" + (getTotalLived()-10)));
       m.setLastBreed();
       f.setLastBreed();
    }

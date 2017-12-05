@@ -293,9 +293,6 @@ class Flower{
       size = ( (Integer) getPhenotype(genes.get("size"), 2) )/2;
       pSize = ceil(size/3);
       maxAge = getSizeAge(size*2);
-      if(random(1) < mutability){
-        maxAge += mutator("maxAge"); 
-      }
       
       String[] petalTypes = new String[]{"square", "round", "triangle"};
       float[] petalWeights = new float[]{1.0, 0.66, 0.33};

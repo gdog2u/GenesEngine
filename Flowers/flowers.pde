@@ -122,6 +122,14 @@ void keyPressed(){
   if(key == 's'){
     field.down();
   }
+  
+  //Shift whole field to specific flower
+  if(key == ']'){
+    field.cycleNext();
+  }
+  if(key == '['){
+    field.cyclePrev();
+  }
 }
 
 void keyReleased(){

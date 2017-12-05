@@ -3,13 +3,19 @@ class Field{
    ArrayList<Flower> field;
    int maxSize;
    int totalLived;
+   //translation variables
    int speedMove, horiMove, vertMove;
+   //cycle variables
+   int currentCycle, centerX, centerY, distX, distY;
    
    Field(int ms){
       field = new ArrayList<Flower>();
       maxSize = ms;
       totalLived = 0;
       speedMove = 16;
+      currentCycle = -1;
+      centerX = width/2;
+      centerY = height/2;
    }
    
    void addFlower(Flower f){
@@ -108,5 +114,42 @@ class Field{
   }
   void resetVert(){
     vertMove = 0;
+  }
+  
+  void cycleNext(){
+    currentCycle++;
+    if(currentCycle >= field.size()){
+      currentCycle = 0;
+    }
+      println("cycled to " + currentCycle + "/" + field.size());
+    Flower temp = field.get(currentCycle);
+    distX = temp.x-centerX;
+    distY = temp.y-centerY;
+    temp.x = centerX;
+    temp.y = centerY;
+    shiftWorld();
+  }
+  
+  void cyclePrev(){
+    currentCycle--;
+    if(currentCycle < 0){
+      currentCycle = field.size()-1;
+    }
+      println("cycled to " + currentCycle + "/" + field.size());
+    Flower temp = field.get(currentCycle);
+    distX = temp.x-centerX;
+    distY = temp.y-centerY;
+    temp.x = centerX;
+    temp.y = centerY;
+    shiftWorld();
+  }
+  
+  void shiftWorld(){
+    for(int i = 0; i < field.size(); i++){
+      if(i != currentCycle){
+        field.get(i).x-=distX;
+        field.get(i).y-=distY;
+      }
+    }
   }
 }

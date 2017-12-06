@@ -16,6 +16,11 @@ class Genotype{
     this.weight = weight;
   }
   
+  public Genotype(char value, float weight){
+    this.value = (Character)value;
+    this.weight = weight;
+  }
+  
   public Genotype(String value, float weight){
     this.value = value;
     this.weight = weight;
@@ -44,6 +49,10 @@ class Genotype{
         newValue[i] = value[i];
       }
     this.value = newValue;
+  }
+  
+  public void setValue(char value){
+    this.value = (Character)value;
   }
   
   public void setValue(String value){

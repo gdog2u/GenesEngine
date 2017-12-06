@@ -134,18 +134,16 @@ class Flower{
      children = 0;
      lastBreed = 0;
      
-     if(random(1) < .51){
-       gender = 'F';
-     }else{
-       gender = 'M'; 
-     }
+     //Mono-hybrid for gender
+     Genotype[] genderMono = getMonoHybrid(mGenes.get("gender"),fGenes.get("gender"));
+     genes.put("gender", new Chromosome(genderMono[0], genderMono[1]));
      
      int centerX = (m.x + f.x)/2;
      int centerY = (m.y + f.y)/2;
      
      do{
-       x = (int) random(-width ,width);
-       y = (int) random(-height, height);
+       x = (int) random(centerX-500 ,centerX+500);
+       y = (int) random(centerY-500, centerY+500);
      }while((pow(x - centerX,2) + pow(y - centerY, 2) <= pow(150,2)) || (pow(x - centerX,2) + pow(y - centerY, 2) >= pow(500,2)));
      
      //Mono-hybrid for Color
@@ -194,7 +192,7 @@ class Flower{
      Genotype[] petalMono = getMonoHybrid(mGenes.get("petal"), fGenes.get("petal"));
      genes.put("petal", new Chromosome(petalMono[0], petalMono[1]));
      
-     if(m.getGender() == 'M'){
+     if(m.getGender() == 'Y'){
        father = m;
        mother = f;
      }else{
@@ -219,10 +217,12 @@ class Flower{
       this.y = y;
      
       if(random(1) < .50){
-        gender = 'M';
+        genes.put("gender", new Chromosome(new Genotype('X', 0.5), new Genotype('Y', 1.0)));
       }else{
-        gender = 'F';
+        genes.put("gender", new Chromosome(new Genotype('X', 0.5), new Genotype('X', 0.5)));
       }
+      
+      gender = (char)getPhenotype(genes.get("gender"),1);
       
       name = "Test_" + (char)(97 + (int)random(26)) + "_" + gender;
       
@@ -437,9 +437,9 @@ class Flower{
    
    boolean canBreed(){
      if(age >= 30){
-       if(lastBreed <= (frameCount - 1000) && gender == 'M'){
+       if(lastBreed <= (frameCount - 1000) && gender == 'X'){
          return true; 
-       }else if( lastBreed <= (frameCount - 1400) && gender == 'F'){
+       }else if( lastBreed <= (frameCount - 1400) && gender == 'Y'){
          return true;
        }else{
          return false;
@@ -519,6 +519,8 @@ class Flower{
          return (Float)gene.getDomGene().getValue();
        }else if(gene.getDomGene().getValue() instanceof String){
          return (String)gene.getDomGene().getValue();
+       }else if(gene.getDomGene().getValue() instanceof Character){
+         return (Character)gene.getDomGene().getValue();
        }else{
          return null;
        }

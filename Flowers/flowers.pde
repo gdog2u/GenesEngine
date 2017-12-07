@@ -24,7 +24,7 @@ void setup(){
    frameRate(30 * speed);
    noStroke();
    
-   field = new Field(25);
+   field = new Field(50);
    
    //Params                   Name  Gender MaxAge   Size                            ColorOne                                    ColorTwo                          PetalOne                      PetalTwo                  MutabilityOne              MutabilityTwo
    //field.addFlower(new Flower("Adam", 'M', 60, new Genotype(60, 1.0), new Genotype(new int[] {187, 187, 0}, 1.0), new Genotype(new int[] {187, 187, 0}, 1.0), new Genotype("square", 1.0), new Genotype("square", 1.0), new Genotype(0.002, 1.0), new Genotype(0.01, 0.5)));

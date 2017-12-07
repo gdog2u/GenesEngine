@@ -9,6 +9,7 @@ Button pausePlayButton;
 Button speedUpButton;
 Button speedDownButton;
 TextDisplay speedDisplay;
+TextDisplay flowersAlive;
 Field field;
 
 boolean start;
@@ -38,6 +39,7 @@ void setup(){
    speedDownButton = new Button(width-275, 10, 50, 30, "<<");
    speedUpButton = new Button(width-125, 10, 50, 30, ">>");
    speedDisplay = new TextDisplay(speed, width-200, 10, 50, 30);
+   flowersAlive = new TextDisplay("Flowers: "+0, width-500, 10, 150, 30);
    
    isDrawing = true;
 }
@@ -54,6 +56,11 @@ void draw(){
    
    startButton.draw();
    pausePlayButton.draw();
+   
+   fill(35,35,35);
+   rect(width-525, 5, 200, 40);
+   flowersAlive.setText("Flowers: "+field.getFieldSize());
+   flowersAlive.draw();
    
    fill(35,35,35);
    rect(width-300, 5, 250, 40);

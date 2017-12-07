@@ -62,7 +62,7 @@ class Field{
    }
    
    void birthChild(Flower m, Flower f){
-      addFlower(new Flower(m, f, "child" + (getTotalLived()-10)));
+      addFlower(new Flower(m, f, "child" + (getTotalLived()-19)));
       m.setLastBreed();
       f.setLastBreed();
    }
@@ -72,7 +72,7 @@ class Field{
    }
    
    boolean toKill(Flower f){
-      if(f.getAge() == f.getMaxAge()){
+      if(f.getAge() >= f.getMaxAge()){
          return true;
       }else{
          return false;

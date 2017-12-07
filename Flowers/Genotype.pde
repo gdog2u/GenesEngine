@@ -2,22 +2,18 @@ class Genotype{
   Object value;
   float weight;
   
-  public Genotype(int value, float weight){
-    this.value = new Integer(value);
+  public Genotype(Integer value, float weight){
+    this.value = value;
     this.weight = weight;
   }
   
-  public Genotype(int[] value, float weight){
-    Integer[] newValue = new Integer[value.length];
-      for(int i = 0; i < value.length; i++){
-        newValue[i] = value[i];
-      }
-    this.value = newValue;
+  public Genotype(Integer[] value, float weight){
+    this.value = value;
     this.weight = weight;
   }
   
-  public Genotype(char value, float weight){
-    this.value = (Character)value;
+  public Genotype(Character value, float weight){
+    this.value = value;
     this.weight = weight;
   }
   
@@ -26,8 +22,8 @@ class Genotype{
     this.weight = weight;
   }
   
-  public Genotype(float value, float weight){
-    this.value = new Float(value);
+  public Genotype(Float value, float weight){
+    this.value = value;
     this.weight = weight;
   }
   
@@ -39,28 +35,24 @@ class Genotype{
     return weight;
   }
   
-  public void setValue(int value){
-    this.value = new Integer(value);
+  public void setValue(Integer value){
+    this.value = value;
   }
   
-  public void setValue(int[] value){
-    Integer[] newValue = new Integer[value.length];
-      for(int i = 0; i < value.length; i++){
-        newValue[i] = value[i];
-      }
-    this.value = newValue;
+  public void setValue(Integer[] value){
+    this.value = value;
   }
   
-  public void setValue(char value){
-    this.value = (Character)value;
+  public void setValue(Character value){
+    this.value = value;
   }
   
   public void setValue(String value){
     this.value = value;
   }
   
-  public void setValue(float value){
-    this.value = new Float(value);
+  public void setValue(Float value){
+    this.value = value;
   }
   
   void setWeight(float weight){
